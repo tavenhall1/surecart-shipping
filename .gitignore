@@ -1,0 +1,46 @@
+# WordPress
+/vendor/
+/node_modules/
+
+# Composer
+composer.lock
+composer.phar
+
+# npm
+package-lock.json
+npm-debug.log
+yarn-error.log
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Build files
+*.zip
+/build/
+/dist/
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+error_log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Testing
+/tests/coverage/
+.phpunit.result.cache
+
+# Production
+/release/

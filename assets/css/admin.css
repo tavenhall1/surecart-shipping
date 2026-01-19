@@ -1,0 +1,59 @@
+/**
+ * SureCart Shippo Admin Styles
+ */
+
+.surecart-shippo-settings-content {
+    margin-top: 20px;
+}
+
+.surecart-shippo-order-panel {
+    padding: 10px 0;
+}
+
+.surecart-shippo-order-panel p {
+    margin: 10px 0;
+}
+
+.surecart-shippo-label-info {
+    padding: 10px;
+    background: #f0f0f1;
+    border-radius: 4px;
+}
+
+.surecart-shippo-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-left: 4px solid #00a0d2;
+    background: #f0f6fc;
+}
+
+.surecart-shippo-message.error {
+    border-left-color: #dc3232;
+    background: #fcf0f1;
+}
+
+.surecart-shippo-message.success {
+    border-left-color: #46b450;
+    background: #ecf7ed;
+}
+
+.surecart-shippo-product-meta label {
+    font-weight: 600;
+}
+
+.surecart-shippo-product-meta input[type="number"] {
+    max-width: 200px;
+}
+
+#test-connection-result {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#test-connection-result.success {
+    color: #46b450;
+}
+
+#test-connection-result.error {
+    color: #dc3232;
+}
