@@ -142,12 +142,42 @@ class Plugin
      */
     private function check_dependencies()
     {
-        // Check if SureCart is active.
-        if (!function_exists('surecart') && !class_exists('SureCart\SureCart')) {
-            return false;
+        // Allow bypassing dependency check via filter
+        if (apply_filters('surecart_shippo_bypass_dependency_check', false)) {
+            return true;
         }
 
-        return true;
+        // Multiple methods to detect SureCart
+
+        // Method 1: Check if SureCart main file is active
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        if (is_plugin_active('surecart/surecart.php')) {
+            return true;
+        }
+
+        // Method 2: Check for SureCart classes (various possibilities)
+        $surecart_classes = [
+            'SureCart\SureCart',
+            'SureCart',
+            '\SureCart\Plugin',
+        ];
+        foreach ($surecart_classes as $class) {
+            if (class_exists($class)) {
+                return true;
+            }
+        }
+
+        // Method 3: Check for SureCart functions
+        if (function_exists('surecart') || function_exists('sc_get')) {
+            return true;
+        }
+
+        // Method 4: Check if SureCart defines any constants
+        if (defined('SURECART_PLUGIN_FILE') || defined('SURECART_VERSION')) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
