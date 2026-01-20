@@ -1,0 +1,62 @@
+name: Build WordPress Plugin Release
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get version from tag
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          else
+            echo "VERSION=dev-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build plugin
+        run: |
+          PLUGIN_SLUG="surecart-shippo"
+          BUILD_DIR="build"
+          RELEASE_DIR="$BUILD_DIR/$PLUGIN_SLUG"
+
+          # Create build directory
+          mkdir -p $RELEASE_DIR
+
+          # Copy plugin files
+          cp surecart-shippo.php $RELEASE_DIR/
+          cp README.md $RELEASE_DIR/
+          cp -r includes $RELEASE_DIR/
+          cp -r assets $RELEASE_DIR/
+          mkdir -p $RELEASE_DIR/languages
+
+          # Create zip
+          cd $BUILD_DIR
+          zip -r -q "../${PLUGIN_SLUG}-${{ steps.get_version.outputs.VERSION }}.zip" $PLUGIN_SLUG/
+          cd ..
+
+      - name: Upload Release Asset
+        if: github.event_name == 'release'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./surecart-shippo-${{ steps.get_version.outputs.VERSION }}.zip
+          asset_name: surecart-shippo-${{ steps.get_version.outputs.VERSION }}.zip
+          asset_content_type: application/zip
+
+      - name: Upload Artifact (for manual builds)
+        if: github.event_name != 'release'
+        uses: actions/upload-artifact@v3
+        with:
+          name: surecart-shippo-${{ steps.get_version.outputs.VERSION }}
+          path: ./surecart-shippo-${{ steps.get_version.outputs.VERSION }}.zip
