@@ -63,7 +63,7 @@ class SureCartIntegration
      */
     public function onOrderPaid($order_id)
     {
-        surecart_shippo()->logger->info('Order paid', ['order_id' => $order_id]);
+        \surecart_shippo()->logger->info('Order paid', ['order_id' => $order_id]);
 
         // Mark order as eligible for label purchase.
         update_post_meta($order_id, '_sc_shippo_eligible_for_label', true);
@@ -79,7 +79,7 @@ class SureCartIntegration
      */
     public function onOrderRefunded($order_id)
     {
-        surecart_shippo()->logger->info('Order refunded', ['order_id' => $order_id]);
+        \surecart_shippo()->logger->info('Order refunded', ['order_id' => $order_id]);
 
         // Block label purchase.
         update_post_meta($order_id, '_sc_shippo_eligible_for_label', false);
@@ -87,7 +87,7 @@ class SureCartIntegration
         // Check if label was already purchased and add note.
         $transaction_id = get_post_meta($order_id, '_sc_shippo_transaction_id', true);
         if (!empty($transaction_id)) {
-            surecart_shippo()->logger->warning('Order refunded but label exists', [
+            \surecart_shippo()->logger->warning('Order refunded but label exists', [
                 'order_id' => $order_id,
                 'transaction_id' => $transaction_id,
             ]);
@@ -106,7 +106,7 @@ class SureCartIntegration
      */
     public function onOrderCanceled($order_id)
     {
-        surecart_shippo()->logger->info('Order canceled', ['order_id' => $order_id]);
+        \surecart_shippo()->logger->info('Order canceled', ['order_id' => $order_id]);
 
         // Block label purchase.
         update_post_meta($order_id, '_sc_shippo_eligible_for_label', false);

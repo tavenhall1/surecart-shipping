@@ -43,8 +43,8 @@ class LabelService
      */
     public function __construct()
     {
-        $this->shippo_client = surecart_shippo()->shippo_client;
-        $this->logger = surecart_shippo()->logger;
+        $this->shippo_client = \surecart_shippo()->shippo_client;
+        $this->logger = \surecart_shippo()->logger;
     }
 
     /**

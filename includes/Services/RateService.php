@@ -46,8 +46,8 @@ class RateService
     public function __construct()
     {
         $this->packaging_engine = new PackagingEngine();
-        $this->shippo_client = surecart_shippo()->shippo_client;
-        $this->logger = surecart_shippo()->logger;
+        $this->shippo_client = \surecart_shippo()->shippo_client;
+        $this->logger = \surecart_shippo()->logger;
     }
 
     /**

@@ -406,7 +406,7 @@ class SettingsPage
             wp_send_json_error(['message' => __('Unauthorized', 'surecart-shippo')]);
         }
 
-        $result = surecart_shippo()->shippo_client->testConnection();
+        $result = \surecart_shippo()->shippo_client->testConnection();
 
         if (is_wp_error($result)) {
             wp_send_json_error(['message' => $result->get_error_message()]);
@@ -462,7 +462,7 @@ class SettingsPage
             wp_send_json_error(['message' => __('Unauthorized', 'surecart-shippo')]);
         }
 
-        surecart_shippo()->logger->clear_logs();
+        \surecart_shippo()->logger->clear_logs();
 
         wp_send_json_success(['message' => __('Logs cleared!', 'surecart-shippo')]);
     }

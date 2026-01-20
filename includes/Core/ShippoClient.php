@@ -68,7 +68,7 @@ class ShippoClient
     {
         $this->mode = get_option('surecart_shippo_mode', 'test');
         $this->api_token = $this->get_api_token();
-        $this->logger = surecart_shippo()->logger;
+        $this->logger = \surecart_shippo()->logger;
     }
 
     /**

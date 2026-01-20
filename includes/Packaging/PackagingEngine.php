@@ -55,7 +55,7 @@ class PackagingEngine
     public function __construct()
     {
         $this->box_catalog = new BoxCatalog();
-        $this->logger = surecart_shippo()->logger;
+        $this->logger = \surecart_shippo()->logger;
     }
 
     /**

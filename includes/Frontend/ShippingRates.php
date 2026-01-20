@@ -76,7 +76,7 @@ class ShippingRates
         $shippo_rates = $this->rate_service->getRates($cart_items, $destination);
 
         if (is_wp_error($shippo_rates)) {
-            surecart_shippo()->logger->error('Failed to get rates', [
+            \surecart_shippo()->logger->error('Failed to get rates', [
                 'error' => $shippo_rates->get_error_message(),
             ]);
             return $rates;
@@ -150,7 +150,7 @@ class ShippingRates
         update_post_meta($order_id, '_sc_shippo_provider', $rate['meta']['provider'] ?? '');
         update_post_meta($order_id, '_sc_shippo_service_level', $rate['meta']['service_level'] ?? '');
 
-        surecart_shippo()->logger->info('Saved shipping rate to order', [
+        \surecart_shippo()->logger->info('Saved shipping rate to order', [
             'order_id' => $order_id,
             'rate_id' => $rate['meta']['shippo_rate_id'],
         ]);

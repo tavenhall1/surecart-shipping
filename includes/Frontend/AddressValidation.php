@@ -41,8 +41,8 @@ class AddressValidation
             return $address;
         }
 
-        $shippo_client = surecart_shippo()->shippo_client;
-        $logger = surecart_shippo()->logger;
+        $shippo_client = \surecart_shippo()->shippo_client;
+        $logger = \surecart_shippo()->logger;
 
         $logger->debug('Validating address', ['address' => $address]);
 
